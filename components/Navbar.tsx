@@ -25,16 +25,6 @@ const Navbar = () => {
           />
           <li className="hover:bg-gray-700 p-2">Home</li>
         </Link>
-        <Link href="/properties" className="flex items-center">
-          <Image
-            src="/assets/img/apartment.png"
-            alt="Property App Logo"
-            width={20}
-            height={20}
-            className="inline-block invert"
-          />
-          <li className="hover:bg-gray-700 p-2">Properties</li>
-        </Link>
         <Link href="/clients" className="flex items-center">
           <Image
             src="/assets/img/client.png"
@@ -44,6 +34,16 @@ const Navbar = () => {
             className="inline-block invert"
           />
           <li className="hover:bg-gray-700 p-2">Clients</li>
+        </Link>
+        <Link href="/properties" className="flex items-center">
+          <Image
+            src="/assets/img/apartment.png"
+            alt="Property App Logo"
+            width={20}
+            height={20}
+            className="inline-block invert"
+          />
+          <li className="hover:bg-gray-700 p-2">Properties</li>
         </Link>
         <Link href="/contracts" className="flex items-center">
           <Image
