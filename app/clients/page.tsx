@@ -1,46 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { clientsData } from "@/lib/data";
 
 type Props = {};
 
 const page = (props: Props) => {
   const [isActive, setIsActive] = useState("false");
 
-  const clientsData: [] = [
-    {
-      _id: 1,
-      name: "Juan Perez",
-      type: "Comprador",
-      contact: "juan.perez@example.com",
-      beneficiario: "Maria Lopez",
-      propiedades: 3,
-    },
-    {
-      _id: 2,
-      name: "María Gomez",
-      type: "Inquilino",
-      contact: "juan.perez@example.com",
-      beneficiario: "Maria Lopez",
-      propiedades: 3,
-    },
-    {
-      _id: 3,
-      name: "César Rodriguez",
-      type: "Propietario",
-      contact: "juan.perez@example.com",
-      beneficiario: "Maria Lopez",
-      propiedades: 3,
-    },
-    {
-      _id: 4,
-      name: "Luisa Fernandez",
-      type: "Comprador",
-      contact: "juan.perez@example.com",
-      beneficiario: "Maria Lopez",
-      propiedades: 3,
-    },
-  ]; // Aquí deberías obtener los datos reales de los clientes
+  // Aquí deberías obtener los datos reales de los clientes
   return (
     <main className="p-2 bg-blue-50 min-h-screen">
       <header className="flex justify-between items-center">
@@ -122,7 +90,7 @@ const page = (props: Props) => {
           </thead>
           <tbody className="">
             {clientsData?.map((client) => (
-              <tr key={client._id} className="hover:bg-blue-200">
+              <tr key={client.id} className="hover:bg-blue-200">
                 <td className="border-b border-gray-100 p-2 pl-8 text-gray-600">
                   <div className="flex gap-4 items-center">
                     <div className="rounded-full bg-amber-300 w-15 h-15 text-2xl flex items-center justify-center">
@@ -140,10 +108,10 @@ const page = (props: Props) => {
                   </div>
                 </td>
                 <td className="border-b border-gray-100 text-gray-600 text-center">
-                  {client.contact}
+                  {client.contacto}
                 </td>
                 <td className="border-b border-gray-100 text-gray-600v text-center">
-                  {client.beneficiario}
+                  {client.beneficiarios}
                 </td>
                 <td className="border-b border-gray-100 text-gray-600 text-center">
                   {client.propiedades}
