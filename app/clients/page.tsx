@@ -105,7 +105,7 @@ const Page = (props: Props) => {
                 <tr key={client.id} className="hover:bg-blue-200">
                   <td className="border-b border-gray-100 p-2 pl-8 text-gray-600">
                     <div className="flex gap-4 items-center">
-                      <div className="rounded-full bg-amber-300 min-w-15 min-h-15 flex items-center justify-center">
+                      <div className="rounded-full bg-amber-300 min-w-10 min-h-10 flex items-center justify-center">
                         {client.name
                           .split(" ")
                           .map((letter) => letter[0])
