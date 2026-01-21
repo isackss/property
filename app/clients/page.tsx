@@ -105,15 +105,15 @@ const Page = (props: Props) => {
                 <tr key={client.id} className="hover:bg-blue-200">
                   <td className="border-b border-gray-100 p-2 pl-8 text-gray-600">
                     <div className="flex gap-4 items-center">
-                      <div className="rounded-full bg-amber-300 w-15 h-15 text-2xl flex items-center justify-center">
+                      <div className="rounded-full bg-amber-300 min-w-15 min-h-15 flex items-center justify-center">
                         {client.name
                           .split(" ")
                           .map((letter) => letter[0])
-                          .join("")
+                          .join("").charAt(0)
                           .toUpperCase()}
                       </div>
                       <div>
-                        <p className="font-medium text-lg">{client.name}</p>
+                        <p>{client.name}</p>
                         <p className="text-gray-500">{client.type}</p>
                       </div>
                     </div>
@@ -121,7 +121,7 @@ const Page = (props: Props) => {
                   <td className="border-b border-gray-100 text-gray-600 text-center">
                     {client.contacto}
                   </td>
-                  <td className="border-b border-gray-100 text-gray-600v text-center">
+                  <td className="border-b border-gray-100 text-gray-600 text-center">
                     {client.beneficiarios}
                   </td>
                   <td className="border-b border-gray-100 text-gray-600 text-center">
