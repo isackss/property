@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import { clientsData } from "@/lib/data";
+import AddClientModal from "@/components/AddClientModal";
 
 type Props = {};
 
 const Page = (props: Props) => {
-  const [isActive, setIsActive] = useState("false");
+  const [showClientModal, setShowClientModal] = useState(false);
 
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -18,9 +19,18 @@ const Page = (props: Props) => {
     setSearchTerm(e.target.value.toLowerCase());
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Lógica para manejar el envío del formulario
+    console.log(e.target.elements);
+    console.log(e.target.value);
+  
+  }
+
   // Aquí deberías obtener los datos reales de los clientes
   return (
     <main className="p-2 bg-blue-50 min-h-screen">
+      {showClientModal && <AddClientModal setShowClientModal={setShowClientModal} handleSubmit={handleSubmit}/>}
       <header className="flex justify-between items-center">
         <div>
           <h1 className="font-semi-bold text-2xl">Clientes</h1>
@@ -29,10 +39,10 @@ const Page = (props: Props) => {
           </p>
         </div>
         <div className="flex gap-2">
-          <button className="px-4 py-2 bg-blue-500 rounded-md text-sm dark:text-white">
+          <button className="px-4 py-2 bg-blue-500 rounded-md text-sm dark:text-white hover:bg-blue-600 cursor-pointer" onClick={() => setShowClientModal(true)}>
             Agregar Cliente
           </button>
-          <button className="px-4 py-2 bg-blue-500 rounded-md text-sm dark:text-white">
+          <button className="px-4 py-2 bg-blue-500 rounded-md text-sm dark:text-white hover:bg-blue-600 cursor-pointer">
             Descargar Reporte
           </button>
         </div>
