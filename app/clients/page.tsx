@@ -1,36 +1,31 @@
-"use client";
 
-import { useState } from "react";
 import { clientsData } from "@/lib/data";
 import AddClientModal from "@/components/AddClientModal";
+import Link from "next/link";
 
-type Props = {};
+export default async function Page ({
+  searchParams,
+}: {
+  searchParams: Promise < {
+    [key: string]: string | string[] | undefined
+  } > ;
+}) {
+  const { modal } = await searchParams;
 
-const Page = (props: Props) => {
-  const [showClientModal, setShowClientModal] = useState(false);
+  /* const [searchTerm, setSearchTerm] = useState(""); */
 
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const clientsFiltered = clientsData.filter((item) =>
-    item.name.toLowerCase().includes(searchTerm),
+ /*  const clientsFiltered = clientsData.filter((item) =>
+    item.name.toLowerCase().includes("")
   );
-
-  const handleInputChange = (e) => {
+ */
+ /*  const handleInputChange = (e) => {
     setSearchTerm(e.target.value.toLowerCase());
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Lógica para manejar el envío del formulario
-    console.log(e.target.elements);
-    console.log(e.target.value);
-  
-  }
+  }; */
 
   // Aquí deberías obtener los datos reales de los clientes
   return (
     <main className="p-2 bg-blue-50 min-h-screen">
-      {showClientModal && <AddClientModal setShowClientModal={setShowClientModal} handleSubmit={handleSubmit}/>}
+      {modal && <AddClientModal />}
       <header className="flex justify-between items-center">
         <div>
           <h1 className="font-semi-bold text-2xl">Clientes</h1>
@@ -39,9 +34,9 @@ const Page = (props: Props) => {
           </p>
         </div>
         <div className="flex gap-2">
-          <button className="px-4 py-2 bg-blue-500 rounded-md text-sm dark:text-white hover:bg-blue-600 cursor-pointer" onClick={() => setShowClientModal(true)}>
+          <Link href="/clients?modal=true" className="px-4 py-2 bg-blue-500 rounded-md text-sm dark:text-white hover:bg-blue-600 cursor-pointer">
             Agregar Cliente
-          </button>
+          </Link>
           <button className="px-4 py-2 bg-blue-500 rounded-md text-sm dark:text-white hover:bg-blue-600 cursor-pointer">
             Descargar Reporte
           </button>
@@ -84,7 +79,6 @@ const Page = (props: Props) => {
           type="text"
           placeholder="Buscar cliente..."
           className="w-full p-4 rounded-2xl outline-none text-sm flex-1"
-          onChange={handleInputChange}
         />
       </div>
       {/* Tabla de clientes */}
@@ -110,8 +104,8 @@ const Page = (props: Props) => {
             </tr>
           </thead>
           <tbody className="">
-            {clientsFiltered.length > 0 ? (
-              clientsFiltered.map((client) => (
+            {clientsData.length > 0 ? (
+              clientsData.map((client) => (
                 <tr key={client.id} className="hover:bg-blue-200">
                   <td className="border-b border-gray-100 p-2 pl-8 text-gray-600">
                     <div className="flex gap-4 items-center">
@@ -218,5 +212,3 @@ const Page = (props: Props) => {
     </main>
   );
 };
-
-export default Page;

@@ -1,6 +1,13 @@
-import FormInput from "./forms/FormInput"
+"use client";
 
-const AddClienteModal = ({setShowClientModal, handleSubmit}) => {
+import FormInput from "./forms/FormInput";
+import Link from "next/link";
+
+const AddClienteModal = () => {
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+    }
   return (
     <div className="w-full fixed inset-0 bg-black/50">
         {/* Modal content goes here */}
@@ -21,10 +28,10 @@ const AddClienteModal = ({setShowClientModal, handleSubmit}) => {
                     >
                         Agregar Cliente
                         </button>
-                        <button className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-blue-600"
-                     onClick={() => setShowClientModal(false)}>
+                        <Link  href="/clients" className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-blue-600"
+                        >
                         Cancelar
-                        </button>
+                        </Link>
                     </div>
                 </form>
             </div>
