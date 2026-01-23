@@ -1,4 +1,14 @@
-export const clientsData = [
+type clientData = {
+  id: number;
+  propiedades: string;
+  name: string;
+  clientType?: string;
+  contacto: string;
+  beneficiarios: string;
+  instrucciones_de_pago: string;
+}
+
+export const clientsData: clientData[] = [
   {
     id: 1,
     propiedades: "814",

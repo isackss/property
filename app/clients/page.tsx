@@ -1,5 +1,5 @@
 
-import { clientsData } from "@/lib/data";
+
 import AddClientModal from "@/components/AddClientModal";
 import Link from "next/link";
 import ClientsTable from "@/components/ClientsTable";

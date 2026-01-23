@@ -93,7 +93,7 @@ const ClientsTable = () => {
                       </div>
                       <div>
                         <p>{client.name}</p>
-                        <p className="text-gray-500">{client.type}</p>
+                        <p className="text-gray-500">{client.clientType}</p>
                       </div>
                     </div>
                   </td>
