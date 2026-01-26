@@ -17,12 +17,12 @@ const AddClienteModal = () => {
             <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h2 className="text-xl font-bold mb-4">Agregar Cliente</h2>
                 <form action={action}>
-                    <FormInput type="text"  name="name" description="Nombre del cliente" placeholder="Nombre del cliente"/>
-                    <FormInput type="text"  name="type" description="Tipo de cliente" placeholder="Tipo de cliente"/>
-                    <FormInput type="text"  name="contact" description="Persona de contacto" placeholder="Contacto"/>
-                    <FormInput type="text"  name="beneficiary" description="Nombre del beneficiario" placeholder="Nombre del beneficiario"/>
-                    <FormInput type="text"  name="properties" description="Propiedad" placeholder="Nombre de la propiedad"/>
-                    <FormInput type="textarea"  name="paymentInstructions" description="Instrucciones de pago" placeholder="Instrucciones de pago"/>
+                    <FormInput type="text"  name="name" label="Nombre del cliente" placeholder="Nombre del cliente"/>
+                    <FormInput type="text"  name="type" label="Tipo de cliente" placeholder="Tipo de cliente"/>
+                    <FormInput type="text"  name="contact" label="Persona de contacto" placeholder="Contacto"/>
+                    <FormInput type="text"  name="beneficiary" label="Nombre del beneficiario" placeholder="Nombre del beneficiario"/>
+                    <FormInput type="text"  name="properties" label="Propiedad" placeholder="Nombre de la propiedad"/>
+                    <FormInput type="textarea"  name="paymentInstructions" label="Instrucciones de pago" placeholder="Instrucciones de pago"/>
                     
 
                     <div className="flex gap-2">
