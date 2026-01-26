@@ -1,16 +1,27 @@
 "use client"
 
 import { useState } from "react"
-import { clientsData } from "@/lib/data"
+import { deleteClient } from "@/app/actions/clientActions";
+/* import { clientsData } from "@/lib/data" */
 
-const ClientsTable = () => {
+type Client = {
+    _id: string;
+    name: string;
+    clientType: string;
+    contact: string;
+    beneficiary: string;
+    properties: number;
+    paymentInstructions: string;
+}
+
+const ClientsTable = ({clients}: { clients: Client[] }) => {
     const [searchTerm, setSearchTerm] = useState("");
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       setSearchTerm(e.target.value.toLowerCase());
     };
 
-    const clientsFiltered = clientsData.filter((item) =>
+    const clientsFiltered = clients.filter((item) =>
       item.name.toLowerCase().includes(searchTerm)
     );
 
@@ -81,13 +92,13 @@ const ClientsTable = () => {
           <tbody className="">
             {clientsFiltered.length > 0 ? (
               clientsFiltered.map((client) => (
-                <tr key={client.id} className="hover:bg-blue-200">
+                <tr key={client._id} className="hover:bg-blue-200">
                   <td className="border-b border-gray-100 p-2 pl-8 text-gray-600">
                     <div className="flex gap-4 items-center">
                       <div className="rounded-full bg-amber-300 min-w-10 min-h-10 flex items-center justify-center">
                         {client.name
                           .split(" ")
-                          .map((letter) => letter[0])
+                          .map((letter: string) => letter[0])
                           .join("").charAt(0)
                           .toUpperCase()}
                       </div>
@@ -98,13 +109,13 @@ const ClientsTable = () => {
                     </div>
                   </td>
                   <td className="border-b border-gray-100 text-gray-600 text-center">
-                    {client.contacto}
+                    {client.contact}
                   </td>
                   <td className="border-b border-gray-100 text-gray-600 text-center">
-                    {client.beneficiarios}
+                    {client.beneficiary}
                   </td>
                   <td className="border-b border-gray-100 text-gray-600 text-center">
-                    {client.propiedades}
+                    {client.properties}
                   </td>
                   <td className="border-b border-gray-100 text-gray-600">
                     <div className="flex gap-4 justify-center">
@@ -151,6 +162,11 @@ const ClientsTable = () => {
                           />
                         </svg>
                       </button>
+                      <form action={async () => {
+                        if (confirm("Are you sure you want to delete this client?")) {
+                          await deleteClient(client._id);
+                        }
+                      }}>
                       <button
                         className="text-red-500 hover:text-red-700"
                         title="delete"
@@ -170,6 +186,7 @@ const ClientsTable = () => {
                           />
                         </svg>
                       </button>
+                      </form>
                     </div>
                   </td>
                 </tr>

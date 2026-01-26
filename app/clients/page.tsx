@@ -1,7 +1,8 @@
-
+import { dbConnect } from "@/lib/mongodb";
+import { Client } from "@/models/Client";
+import Link from "next/link";
 
 import AddClientModal from "@/components/AddClientModal";
-import Link from "next/link";
 import ClientsTable from "@/components/ClientsTable";
 
 export default async function Page ({
@@ -11,17 +12,18 @@ export default async function Page ({
     [key: string]: string | string[] | undefined
   } > ;
 }) {
+  
   const { modal } = await searchParams;
 
-  /* const [searchTerm, setSearchTerm] = useState(""); */
+  async function fetchClients() {
+    await dbConnect();
+    const clients = await Client.find({}).lean();
+    const plainData = JSON.parse(JSON.stringify(clients));
+    console.log("Fetched clients:", plainData);
+    return plainData;
+  }
 
- /*  const clientsFiltered = clientsData.filter((item) =>
-    item.name.toLowerCase().includes("")
-  );
- */
- /*  const handleInputChange = (e) => {
-    setSearchTerm(e.target.value.toLowerCase());
-  }; */
+  const clientsList = await fetchClients();
 
   // Aquí deberías obtener los datos reales de los clientes
   return (
@@ -43,7 +45,7 @@ export default async function Page ({
           </button>
         </div>
       </header>
-      <ClientsTable />
+      <ClientsTable clients={clientsList} />
     </main>
   );
 };
