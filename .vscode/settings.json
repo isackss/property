@@ -1,0 +1,27 @@
+{
+  // --- Configuración de Formato ---
+
+  // 1. Establece Prettier como el formateador por defecto
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  // 2. Activa el formateo automático al guardar el archivo
+  "editor.formatOnSave": true,
+
+  // --- (Opcional) Configuración de ESlint ---
+
+  // 3. Activa ESlint para que también "arregle" problemas al guardar
+  // (Ej: quitar variables no usadas)
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+
+  // 4. (Opcional) Valida ESlint en estos lenguajes
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  // Recomendado para Tailwind: permite que el autocompletado funcione bien
+  "tailwindCSS.emmetCompletions": true
+}
