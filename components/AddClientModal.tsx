@@ -10,12 +10,12 @@ const AddClienteModal = () => {
     const [state, action, isPending] = useActionState(createClient, null);
 
     return (
-        <div className="fixed inset-0 w-full bg-black/50">
+        <div className="fixed inset-0 w-full overflow-y-scroll bg-black/50">
             {/* Modal content goes here */}
-            <div className="mx-auto mt-20 max-w-lg">
+            <div className="mx-auto mt-20 w-1/2 p-4">
                 <div className="rounded-lg bg-white p-6 shadow-lg">
                     <h2 className="mb-4 text-xl font-bold">Agregar Cliente</h2>
-                    <form action={action}>
+                    <form action={action} className="grid gap-4 md:grid-cols-2">
                         <FormInput
                             type="text"
                             name="name"
@@ -24,9 +24,36 @@ const AddClienteModal = () => {
                         />
                         <FormInput
                             type="text"
+                            name="companyName"
+                            label="Nombre de la empresa"
+                            placeholder="Nombre de la empresa"
+                        />
+
+                        <FormInput
+                            type="text"
+                            name="identificationNumber"
+                            label="Número de identificación"
+                            placeholder="Número de identificación (NIT, cédula o pasaporte)"
+                        />
+                        <FormInput
+                            type="email"
+                            name="email"
+                            label="Correo electrónico"
+                            placeholder="Correo electrónico"
+                        />
+
+                        <FormInput
+                            type="text"
+                            name="phone"
+                            label="Teléfono"
+                            placeholder="Número de teléfono"
+                        />
+                        <FormInput
+                            type="select"
                             name="type"
                             label="Tipo de cliente"
                             placeholder="Tipo de cliente"
+                            options={['Inquilino', 'Copropietario']}
                         />
                         <FormInput
                             type="text"

@@ -3,9 +3,53 @@ type Props = {
     name: string;
     placeholder: string;
     label?: string;
+    options?: string[];
 };
 
-const FormInput = ({ type, name, label, placeholder }: Props) => {
+const FormInput = ({ type, name, label, placeholder, options }: Props) => {
+    const inputType = ({ type }: { type: string }) => {
+        switch (type) {
+            case 'textarea':
+                return (
+                    <textarea
+                        name={name}
+                        placeholder={placeholder}
+                        className="mb-4 w-full rounded border border-gray-300 p-2"
+                    />
+                );
+            case 'text':
+                return (
+                    <input
+                        className="mb-4 w-full rounded border border-gray-300 p-2"
+                        type={type}
+                        name={name}
+                        placeholder={placeholder}
+                    />
+                );
+            case 'select':
+                return (
+                    <select
+                        name={name}
+                        className="mb-4 w-full rounded border border-gray-300 p-2"
+                    >
+                        {options?.map((option) => (
+                            <option key={option} value={option}>
+                                {option}
+                            </option>
+                        ))}
+                    </select>
+                );
+            case 'email':
+                return (
+                    <input
+                        className="mb-4 w-full rounded border border-gray-300 p-2"
+                        type={type}
+                        name={name}
+                        placeholder={placeholder}
+                    />
+                );
+        }
+    };
     return (
         <div className="w-full">
             <label
@@ -14,20 +58,10 @@ const FormInput = ({ type, name, label, placeholder }: Props) => {
             >
                 {label}
             </label>
-            {type === 'textarea' ? (
-                <textarea
-                    name={name}
-                    placeholder={placeholder}
-                    className="mb-4 w-full rounded border border-gray-300 p-2"
-                />
-            ) : (
-                <input
-                    className="mb-4 w-full rounded border border-gray-300 p-2"
-                    type={type}
-                    name={name}
-                    placeholder={placeholder}
-                />
-            )}
+            {
+                /* Conditional rendering based on the type prop */
+                inputType({ type })
+            }
         </div>
     );
 };
