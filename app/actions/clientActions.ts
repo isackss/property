@@ -5,7 +5,7 @@ import { dbConnect } from '@/lib/mongodb';
 import { Client } from '@/models/Client';
 import { revalidatePath } from 'next/cache';
 
-export async function createClient(prevState: any, formData: FormData) {
+export async function createClient(formData: FormData) {
     await dbConnect();
 
     try {
@@ -16,6 +16,10 @@ export async function createClient(prevState: any, formData: FormData) {
             beneficiary: formData.get('beneficiary'),
             properties: Number(formData.get('properties')),
             paymentInstructions: formData.get('paymentInstructions'),
+            companyName: formData.get('companyName'),
+            identificationNumber: formData.get('identificationNumber'),
+            email: formData.get('email'),
+            phone: formData.get('phone'),
         };
 
         await Client.create(rawFormData);

@@ -9,6 +9,10 @@ const ClientSchema = new mongoose.Schema(
         beneficiary: { type: String, required: true },
         properties: { type: String, required: true },
         paymentInstructions: { type: String, required: false },
+        companyName: { type: String, required: false },
+        identificationNumber: { type: String, required: false },
+        email: { type: String, required: false },
+        phone: { type: String, required: false },
     },
     { timestamps: true }
 );
