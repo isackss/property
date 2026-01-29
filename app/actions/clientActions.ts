@@ -5,7 +5,7 @@ import { dbConnect } from '@/lib/mongodb';
 import { Client } from '@/models/Client';
 import { revalidatePath } from 'next/cache';
 
-export async function createClient(formData: FormData) {
+export async function createClient(prevState: any, formData: FormData) {
     await dbConnect();
 
     try {
