@@ -7,7 +7,7 @@ const ClientSchema = new mongoose.Schema(
         type: { type: String, required: true },
         contact: { type: String, required: true },
         beneficiary: { type: String, required: true },
-        properties: { type: String, required: true },
+        property: { type: String, required: true },
         paymentInstructions: { type: String, required: false },
         companyName: { type: String, required: false },
         identificationNumber: { type: String, required: false },

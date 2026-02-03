@@ -10,7 +10,7 @@ type Client = {
     clientType: string;
     contact: string;
     beneficiary: string;
-    properties: number;
+    property: string;
     paymentInstructions: string;
 };
 
@@ -124,7 +124,7 @@ const ClientsTable = ({ clients }: { clients: Client[] }) => {
                                         {client.beneficiary}
                                     </td>
                                     <td className="border-b border-gray-100 text-center text-gray-600">
-                                        {client.properties}
+                                        {client.property}
                                     </td>
                                     <td className="border-b border-gray-100 text-gray-600">
                                         <div className="flex justify-center gap-4">
@@ -220,6 +220,9 @@ const ClientsTable = ({ clients }: { clients: Client[] }) => {
                         )}
                     </tbody>
                 </table>
+                <div className="p-4 text-center text-gray-600">
+                    Total de registros: {clients.length}
+                </div>
             </div>
         </div>
     );

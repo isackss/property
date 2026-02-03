@@ -14,7 +14,7 @@ export async function createClient(prevState: any, formData: FormData) {
             type: formData.get('type'),
             contact: formData.get('contact'),
             beneficiary: formData.get('beneficiary'),
-            properties: Number(formData.get('properties')),
+            property: formData.get('property'),
             paymentInstructions: formData.get('paymentInstructions'),
             companyName: formData.get('companyName'),
             identificationNumber: formData.get('identificationNumber'),
