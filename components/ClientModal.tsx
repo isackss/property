@@ -1,32 +1,60 @@
 'use client';
 
-import { useActionState } from 'react';
-import { createClient } from '@/app/actions/clientActions';
-import Link from 'next/link';
+import { useActionState, useEffect } from 'react';
+import { createClient, updateClient } from '@/app/actions/clientActions';
 
 import FormInput from './forms/FormInput';
 
-const AddClienteModal = () => {
-    const [state, action, isPending] = useActionState(createClient, null);
+interface Props {
+    isOpen: boolean;
+    onClose: () => void;
+    client?: any;
+}
+
+const ClientModal = ({ isOpen, onClose, client }: Props) => {
+    // Determinamos qué acción usar
+    const actionWithId = client
+        ? updateClient.bind(null, client._id)
+        : createClient;
+
+    const [state, action, isPending] = useActionState(actionWithId, null);
+
+    // Cerrar modal automáticamente si la operación fue exitosa
+    useEffect(() => {
+        if (state?.success) {
+            const timer = setTimeout(() => {
+                onClose();
+            }, 1500);
+            return () => clearTimeout(timer);
+        }
+    }, [state, onClose]);
+
+    /* if (!isOpen) return null; */
+
+    console.log('Rendering ClientModal with client:', client);
 
     return (
         <div className="fixed inset-0 w-full overflow-y-scroll bg-black/50">
             {/* Modal content goes here */}
             <div className="mx-auto mt-20 w-1/2 p-4">
                 <div className="rounded-lg bg-white p-6 shadow-lg">
-                    <h2 className="mb-4 text-xl font-bold">Agregar Cliente</h2>
+                    <h2 className="mb-4 text-xl font-bold">
+                        {client ? 'Editar Cliente' : 'Nuevo Cliente'}
+                    </h2>
                     <form action={action} className="grid gap-4 md:grid-cols-2">
                         <FormInput
                             type="text"
                             name="name"
                             label="Nombre del cliente"
                             placeholder="Nombre del cliente"
+                            defaultValue={client?.name}
                         />
                         <FormInput
                             type="text"
                             name="companyName"
                             label="Nombre de la empresa"
                             placeholder="Nombre de la empresa"
+                            defaultValue={client?.companyName}
                         />
 
                         <FormInput
@@ -34,12 +62,14 @@ const AddClienteModal = () => {
                             name="identificationNumber"
                             label="Número de identificación"
                             placeholder="Número de identificación (NIT, cédula o pasaporte)"
+                            defaultValue={client?.identificationNumber}
                         />
                         <FormInput
                             type="email"
                             name="email"
                             label="Correo electrónico"
                             placeholder="Correo electrónico"
+                            defaultValue={client?.email}
                         />
 
                         <FormInput
@@ -47,6 +77,7 @@ const AddClienteModal = () => {
                             name="phone"
                             label="Teléfono"
                             placeholder="Número de teléfono"
+                            defaultValue={client?.phone}
                         />
                         <FormInput
                             type="select"
@@ -54,30 +85,35 @@ const AddClienteModal = () => {
                             label="Tipo de cliente"
                             placeholder="Tipo de cliente"
                             options={['Inquilino', 'Copropietario']}
+                            defaultValue={client?.type}
                         />
                         <FormInput
                             type="text"
                             name="contact"
                             label="Persona de contacto"
                             placeholder="Contacto"
+                            defaultValue={client?.contact}
                         />
                         <FormInput
                             type="text"
                             name="beneficiary"
                             label="Nombre del beneficiario"
                             placeholder="Nombre del beneficiario"
+                            defaultValue={client?.beneficiary}
                         />
                         <FormInput
                             type="text"
                             name="properties"
                             label="Propiedad"
                             placeholder="Nombre de la propiedad"
+                            defaultValue={client?.properties}
                         />
                         <FormInput
                             type="textarea"
                             name="paymentInstructions"
                             label="Instrucciones de pago"
                             placeholder="Instrucciones de pago"
+                            defaultValue={client?.paymentInstructions}
                         />
 
                         <div className="flex gap-2">
@@ -97,14 +133,19 @@ const AddClienteModal = () => {
                                 className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
                                 disabled={isPending}
                             >
-                                {isPending ? 'Guardando...' : 'Crear Cliente'}
+                                {isPending
+                                    ? 'Procesando...'
+                                    : client
+                                      ? 'Actualizar'
+                                      : 'Guardar'}
                             </button>
-                            <Link
-                                href="/clients"
-                                className="rounded bg-gray-500 px-4 py-2 text-white hover:bg-blue-600"
+                            <button
+                                type="button"
+                                onClick={onClose}
+                                className="flex-1 rounded border px-4 py-2 hover:bg-gray-50"
                             >
                                 Cancelar
-                            </Link>
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -113,4 +154,4 @@ const AddClienteModal = () => {
     );
 };
 
-export default AddClienteModal;
+export default ClientModal;

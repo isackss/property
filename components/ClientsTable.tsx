@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { deleteClient } from '@/app/actions/clientActions';
+import ClientModal from './ClientModal';
 /* import { clientsData } from "@/lib/data" */
 
 type Client = {
@@ -16,6 +17,19 @@ type Client = {
 
 const ClientsTable = ({ clients }: { clients: Client[] }) => {
     const [searchTerm, setSearchTerm] = useState('');
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedClient, setSelectedClient] = useState<any>(null);
+
+    const openCreate = () => {
+        setSelectedClient(null);
+        setIsModalOpen(true);
+        console.log(isModalOpen);
+    };
+
+    const openEdit = (client: any) => {
+        setSelectedClient(client);
+        setIsModalOpen(true);
+    };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(e.target.value.toLowerCase());
@@ -27,6 +41,19 @@ const ClientsTable = ({ clients }: { clients: Client[] }) => {
 
     return (
         <div>
+            {/* Modal */}
+            <button
+                onClick={openCreate}
+                className="rounded-lg bg-green-600 px-4 py-2 text-white"
+            >
+                + Añadir Cliente
+            </button>
+            {isModalOpen && (
+                <ClientModal
+                    onClose={() => setIsModalOpen(false)}
+                    client={selectedClient}
+                />
+            )}
             {/* Filtro */}
             <div className="flex gap-2 border-b border-gray-300 p-2">
                 <button className="isActive rounded-md bg-blue-500 px-4 py-2 text-sm dark:text-white">
@@ -155,6 +182,7 @@ const ClientsTable = ({ clients }: { clients: Client[] }) => {
                                             <button
                                                 className="text-blue-500 hover:text-blue-700"
                                                 title="edit"
+                                                onClick={() => openEdit(client)}
                                             >
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"

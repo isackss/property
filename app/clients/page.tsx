@@ -2,7 +2,6 @@ import { dbConnect } from '@/lib/mongodb';
 import { Client } from '@/models/Client';
 import Link from 'next/link';
 
-import AddClientModal from '@/components/AddClientModal';
 import ClientsTable from '@/components/ClientsTable';
 
 export default async function Page({
@@ -12,8 +11,6 @@ export default async function Page({
         [key: string]: string | string[] | undefined;
     }>;
 }) {
-    const { modal } = await searchParams;
-
     async function fetchClients() {
         await dbConnect();
         const clients = await Client.find({}).lean();
@@ -27,7 +24,6 @@ export default async function Page({
     // Aquí deberías obtener los datos reales de los clientes
     return (
         <main className="min-h-screen bg-blue-50 p-2">
-            {modal && <AddClientModal />}
             <header className="flex items-center justify-between">
                 <div>
                     <h1 className="font-semi-bold text-2xl">Clientes</h1>

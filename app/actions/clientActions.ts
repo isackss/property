@@ -5,6 +5,12 @@ import { dbConnect } from '@/lib/mongodb';
 import { Client } from '@/models/Client';
 import { revalidatePath } from 'next/cache';
 
+export async function fetchClientById(id: string) {
+    await dbConnect();
+    const client = await Client.findById(id).lean();
+    return JSON.parse(JSON.stringify(client));
+}
+
 export async function createClient(prevState: any, formData: FormData) {
     await dbConnect();
 
@@ -31,6 +37,35 @@ export async function createClient(prevState: any, formData: FormData) {
             throw new Error('Duplicate entry detected');
             return { error: 'An error occurred while creating the client.' };
         }
+    }
+}
+
+export async function updateClient(
+    id: string,
+    prevState: any,
+    formData: FormData
+) {
+    await dbConnect();
+
+    try {
+        const rawFormData = {
+            name: formData.get('name'),
+            type: formData.get('type'),
+            contact: formData.get('contact'),
+            beneficiary: formData.get('beneficiary'),
+            property: formData.get('property'),
+            paymentInstructions: formData.get('paymentInstructions'),
+            companyName: formData.get('companyName'),
+            identificationNumber: formData.get('identificationNumber'),
+            email: formData.get('email'),
+            phone: formData.get('phone'),
+        };
+
+        await Client.findByIdAndUpdate(id, rawFormData);
+        revalidatePath('/clients');
+        return { success: true, message: 'Cliente actualizado con éxito' };
+    } catch (error) {
+        return { error: 'An error occurred while updating the client.' };
     }
 }
 

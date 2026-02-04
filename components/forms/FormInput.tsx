@@ -6,7 +6,14 @@ type Props = {
     options?: string[];
 };
 
-const FormInput = ({ type, name, label, placeholder, options }: Props) => {
+const FormInput = ({
+    type,
+    name,
+    label,
+    placeholder,
+    options,
+    defaultValue,
+}: Props) => {
     const inputType = ({ type }: { type: string }) => {
         switch (type) {
             case 'textarea':
@@ -14,6 +21,7 @@ const FormInput = ({ type, name, label, placeholder, options }: Props) => {
                     <textarea
                         name={name}
                         placeholder={placeholder}
+                        defaultValue={defaultValue}
                         className="mb-4 w-full rounded border border-gray-300 p-2"
                     />
                 );
@@ -24,6 +32,7 @@ const FormInput = ({ type, name, label, placeholder, options }: Props) => {
                         type={type}
                         name={name}
                         placeholder={placeholder}
+                        defaultValue={defaultValue}
                     />
                 );
             case 'select':
@@ -33,7 +42,13 @@ const FormInput = ({ type, name, label, placeholder, options }: Props) => {
                         className="mb-4 w-full rounded border border-gray-300 p-2"
                     >
                         {options?.map((option) => (
-                            <option key={option} value={option}>
+                            <option
+                                key={option}
+                                value={option}
+                                defaultValue={
+                                    defaultValue === option ? true : false
+                                }
+                            >
                                 {option}
                             </option>
                         ))}
@@ -46,6 +61,7 @@ const FormInput = ({ type, name, label, placeholder, options }: Props) => {
                         type={type}
                         name={name}
                         placeholder={placeholder}
+                        defaultValue={defaultValue}
                     />
                 );
         }
