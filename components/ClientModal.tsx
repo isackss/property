@@ -12,11 +12,11 @@ interface Props {
 }
 
 const ClientModal = ({ isOpen, onClose, client }: Props) => {
+    console.log('client data:', client);
     // Determinamos qué acción usar
     const actionWithId = client
         ? updateClient.bind(null, client._id)
         : createClient;
-
     const [state, action, isPending] = useActionState(actionWithId, null);
 
     // Cerrar modal automáticamente si la operación fue exitosa
@@ -38,6 +38,19 @@ const ClientModal = ({ isOpen, onClose, client }: Props) => {
             {/* Modal content goes here */}
             <div className="mx-auto mt-20 w-1/2 p-4">
                 <div className="rounded-lg bg-white p-6 shadow-lg">
+                    <div>
+                        {/* Feedback visual */}
+                        {state?.error && (
+                            <p className="text-sm text-red-500">
+                                {state.error}
+                            </p>
+                        )}
+                        {state?.success && (
+                            <p className="text-sm text-green-500">
+                                {state.message}
+                            </p>
+                        )}
+                    </div>
                     <h2 className="mb-4 text-xl font-bold">
                         {client ? 'Editar Cliente' : 'Nuevo Cliente'}
                     </h2>
@@ -103,10 +116,10 @@ const ClientModal = ({ isOpen, onClose, client }: Props) => {
                         />
                         <FormInput
                             type="text"
-                            name="properties"
+                            name="property"
                             label="Propiedad"
                             placeholder="Nombre de la propiedad"
-                            defaultValue={client?.properties}
+                            defaultValue={client?.property}
                         />
                         <FormInput
                             type="textarea"
@@ -117,20 +130,9 @@ const ClientModal = ({ isOpen, onClose, client }: Props) => {
                         />
 
                         <div className="flex gap-2">
-                            {/* Feedback visual */}
-                            {state?.error && (
-                                <p className="text-sm text-red-500">
-                                    {state.error}
-                                </p>
-                            )}
-                            {state?.success && (
-                                <p className="text-sm text-green-500">
-                                    {state.message}
-                                </p>
-                            )}
                             <button
                                 type="submit"
-                                className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+                                className="cursor-pointer rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
                                 disabled={isPending}
                             >
                                 {isPending
@@ -142,7 +144,7 @@ const ClientModal = ({ isOpen, onClose, client }: Props) => {
                             <button
                                 type="button"
                                 onClick={onClose}
-                                className="flex-1 rounded border px-4 py-2 hover:bg-gray-50"
+                                className="cursor-pointer rounded border border-gray-300 px-4 py-2 hover:bg-gray-100"
                             >
                                 Cancelar
                             </button>

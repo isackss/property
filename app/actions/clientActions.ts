@@ -27,6 +27,7 @@ export async function createClient(prevState: any, formData: FormData) {
             email: formData.get('email'),
             phone: formData.get('phone'),
         };
+        console.log('Creating client with data:', rawFormData);
 
         await Client.create(rawFormData);
         // Next.js 16: Revalidamos la ruta para actualizar el listado instantáneamente

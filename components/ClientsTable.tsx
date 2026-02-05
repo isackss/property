@@ -42,12 +42,6 @@ const ClientsTable = ({ clients }: { clients: Client[] }) => {
     return (
         <div>
             {/* Modal */}
-            <button
-                onClick={openCreate}
-                className="rounded-lg bg-green-600 px-4 py-2 text-white"
-            >
-                + Añadir Cliente
-            </button>
             {isModalOpen && (
                 <ClientModal
                     onClose={() => setIsModalOpen(false)}
@@ -55,20 +49,26 @@ const ClientsTable = ({ clients }: { clients: Client[] }) => {
                 />
             )}
             {/* Filtro */}
-            <div className="flex gap-2 border-b border-gray-300 p-2">
-                <button className="isActive rounded-md bg-blue-500 px-4 py-2 text-sm dark:text-white">
-                    Todos
-                </button>
-                <button className="rounded-md border border-blue-500 px-4 py-2 text-sm text-blue-500">
-                    Compradores
-                </button>
-                <button className="rounded-md border border-blue-500 px-4 py-2 text-sm text-blue-500">
-                    Inquilinos
-                </button>
-                <button className="rounded-md border border-blue-500 px-4 py-2 text-sm text-blue-500">
-                    Propietarios
+            <div className="flex w-full items-center justify-between">
+                <div className="flex gap-2 border-b border-gray-300 p-2">
+                    <button className="isActive rounded-md bg-blue-500 px-4 py-2 text-sm dark:text-white">
+                        Todos
+                    </button>
+                    <button className="rounded-md border border-blue-500 px-4 py-2 text-sm text-blue-500">
+                        Compradores
+                    </button>
+                    <button className="rounded-md border border-blue-500 px-4 py-2 text-sm text-blue-500">
+                        Inquilinos
+                    </button>
+                </div>
+                <button
+                    className="cursor-pointer rounded-md bg-blue-500 px-4 py-2 text-sm hover:bg-blue-600 dark:text-white"
+                    onClick={openCreate}
+                >
+                    + Crear nuevo cliente
                 </button>
             </div>
+
             {/* Search */}
             <div className="my-4 flex items-center justify-center gap-2 rounded-2xl border border-gray-300 bg-blue-100 px-4 focus-within:ring-2 focus-within:ring-blue-500">
                 <p className="text-blue-400">
@@ -249,7 +249,7 @@ const ClientsTable = ({ clients }: { clients: Client[] }) => {
                     </tbody>
                 </table>
                 <div className="p-4 text-center text-gray-600">
-                    Total de registros: {clients.length}
+                    Total de registros: {clientsFiltered.length}
                 </div>
             </div>
         </div>

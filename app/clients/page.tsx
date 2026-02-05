@@ -32,12 +32,6 @@ export default async function Page({
                     </p>
                 </div>
                 <div className="flex gap-2">
-                    <Link
-                        href="/clients?modal=true"
-                        className="cursor-pointer rounded-md bg-blue-500 px-4 py-2 text-sm hover:bg-blue-600 dark:text-white"
-                    >
-                        Agregar Cliente
-                    </Link>
                     <button className="cursor-pointer rounded-md bg-blue-500 px-4 py-2 text-sm hover:bg-blue-600 dark:text-white">
                         Descargar Reporte
                     </button>
