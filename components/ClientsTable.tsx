@@ -3,30 +3,23 @@
 import { useState } from 'react';
 import { deleteClient } from '@/app/actions/clientActions';
 import ClientModal from './ClientModal';
+import type { Client } from '@/types/client';
 /* import { clientsData } from "@/lib/data" */
-
-type Client = {
-    _id: string;
-    name: string;
-    clientType: string;
-    contact: string;
-    beneficiary: string;
-    property: string;
-    paymentInstructions: string;
-};
 
 const ClientsTable = ({ clients }: { clients: Client[] }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedClient, setSelectedClient] = useState<any>(null);
+    const [selectedClient, setSelectedClient] = useState<Client | undefined>(
+        undefined
+    );
 
     const openCreate = () => {
-        setSelectedClient(null);
+        setSelectedClient(undefined);
         setIsModalOpen(true);
         console.log(isModalOpen);
     };
 
-    const openEdit = (client: any) => {
+    const openEdit = (client: Client) => {
         setSelectedClient(client);
         setIsModalOpen(true);
     };
@@ -44,6 +37,7 @@ const ClientsTable = ({ clients }: { clients: Client[] }) => {
             {/* Modal */}
             {isModalOpen && (
                 <ClientModal
+                    isOpen={isModalOpen}
                     onClose={() => setIsModalOpen(false)}
                     client={selectedClient}
                 />
@@ -139,7 +133,7 @@ const ClientsTable = ({ clients }: { clients: Client[] }) => {
                                             <div>
                                                 <p>{client.name}</p>
                                                 <p className="text-gray-500">
-                                                    {client.clientType}
+                                                    {client.type}
                                                 </p>
                                             </div>
                                         </div>

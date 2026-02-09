@@ -4,6 +4,7 @@ type Props = {
     placeholder: string;
     label?: string;
     options?: string[];
+    defaultValue?: string;
 };
 
 const FormInput = ({
@@ -40,15 +41,10 @@ const FormInput = ({
                     <select
                         name={name}
                         className="mb-4 w-full rounded border border-gray-300 p-2"
+                        defaultValue={defaultValue}
                     >
                         {options?.map((option) => (
-                            <option
-                                key={option}
-                                value={option}
-                                defaultValue={
-                                    defaultValue === option ? true : false
-                                }
-                            >
+                            <option key={option} value={option}>
                                 {option}
                             </option>
                         ))}

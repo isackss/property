@@ -2,16 +2,17 @@
 
 import { useActionState, useEffect } from 'react';
 import { createClient, updateClient } from '@/app/actions/clientActions';
+import type { Client } from '@/types/client';
 
 import FormInput from './forms/FormInput';
 
 interface Props {
     isOpen: boolean;
     onClose: () => void;
-    client?: any;
+    client?: Client;
 }
 
-const ClientModal = ({ isOpen, onClose, client }: Props) => {
+const ClientModal = ({ onClose, client }: Props) => {
     console.log('client data:', client);
     // Determinamos qué acción usar
     const actionWithId = client
