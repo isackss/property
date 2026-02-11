@@ -1,16 +1,9 @@
 import { dbConnect } from '@/lib/mongodb';
 import { Client } from '@/models/Client';
-import Link from 'next/link';
 
 import ClientsTable from '@/components/ClientsTable';
 
-export default async function Page({
-    searchParams,
-}: {
-    searchParams: Promise<{
-        [key: string]: string | string[] | undefined;
-    }>;
-}) {
+export default async function Page() {
     async function fetchClients() {
         await dbConnect();
         const clients = await Client.find({}).lean();

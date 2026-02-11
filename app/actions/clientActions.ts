@@ -3,6 +3,7 @@
 
 import { dbConnect } from '@/lib/mongodb';
 import { Client } from '@/models/Client';
+import mongoose from 'mongoose';
 import { revalidatePath } from 'next/cache';
 
 export async function fetchClientById(id: string) {
@@ -11,7 +12,7 @@ export async function fetchClientById(id: string) {
     return JSON.parse(JSON.stringify(client));
 }
 
-export async function createClient(prevState: any, formData: FormData) {
+export async function createClient(prevState: unknown, formData: FormData) {
     await dbConnect();
 
     try {
@@ -33,17 +34,19 @@ export async function createClient(prevState: any, formData: FormData) {
         // Next.js 16: Revalidamos la ruta para actualizar el listado instantáneamente
         revalidatePath('/clients');
         return { success: true, message: 'Cliente creado con éxito' };
-    } catch (error: any) {
-        if (error.code === 11000) {
-            throw new Error('Duplicate entry detected');
-            return { error: 'An error occurred while creating the client.' };
+    } catch (error: unknown) {
+        if (error instanceof mongoose.Error.ValidationError) {
+            return {
+                error: 'Error al crear el cliente. Verifique los datos ingresados.',
+            };
         }
+        throw error;
     }
 }
 
 export async function updateClient(
     id: string,
-    prevState: any,
+    prevState: unknown,
     formData: FormData
 ) {
     await dbConnect();
@@ -64,9 +67,12 @@ export async function updateClient(
 
         await Client.findByIdAndUpdate(id, rawFormData);
         revalidatePath('/clients');
-        return { success: true, message: 'Cliente actualizado con éxito' };
-    } catch (error) {
-        return { error: 'An error occurred while updating the client.' };
+        return { success: true, message: 'Cliente actualizado con éxito!' };
+    } catch (error: unknown) {
+        if (error instanceof mongoose.Error.ValidationError) {
+            return { error: 'Error al actualizar el cliente.' };
+        }
+        throw error;
     }
 }
 
